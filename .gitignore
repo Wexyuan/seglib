@@ -173,6 +173,7 @@ tensorboard_logs/
 # Dataset directories
 data/
 datasets/
+!core/datasets/
 raw_data/
 processed_data/
 
