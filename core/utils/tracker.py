@@ -354,49 +354,6 @@ class Tracker:
         except Exception as e:
             logger.error(f"Error while finishing tracker: {e}")
 
-    def save_checkpoint(self, state: Dict[str, Any], filename: str) -> None:
-        """
-        保存模型检查点
-        
-        Args:
-            state: 要保存的状态字典
-            filename: 文件名
-        """
-        try:
-            checkpoint_path = self.checkpoints_path / filename
-            import torch
-            torch.save(state, checkpoint_path)
-            logger.info(f"Checkpoint saved to {checkpoint_path}")
-        except Exception as e:
-            logger.error(f"Failed to save checkpoint: {e}")
-
-    def load_checkpoint(self, filename: str) -> Dict[str, Any]:
-        """
-        加载模型检查点
-        
-        Args:
-            filename: 文件名
-            
-        Returns:
-            Dict[str, Any]: 状态字典
-            
-        Raises:
-            FileNotFoundError: 当检查点文件不存在时
-        """
-        try:
-            import torch
-            checkpoint_path = self.checkpoints_path / filename
-            if not checkpoint_path.exists():
-                raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
-                
-            state = torch.load(checkpoint_path)
-            logger.info(f"Checkpoint loaded from {checkpoint_path}")
-            return state
-        except Exception as e:
-            logger.error(f"Failed to load checkpoint: {e}")
-            raise
-
-
 if __name__ == '__main__':
     # 示例用法
     tracker = Tracker(path='results', name='Unet')
